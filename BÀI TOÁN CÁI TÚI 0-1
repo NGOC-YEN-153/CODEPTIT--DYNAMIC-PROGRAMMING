@@ -1,0 +1,27 @@
+#include <bits/stdc++.h>
+#define ll long long
+using namespace std;
+void solve(){
+    int n , v;
+    cin >> n >> v;
+    pair<int,int> a[n];
+    for(int i = 0 ; i < n; i++)cin >>a[i].first;
+    for(int i = 0 ; i < n ;i++)cin >>a[i].second;
+    int dp[v +1];
+    memset(dp,0,sizeof(dp));
+    dp[0] = 1;
+    for(int i = 0 ;i< n; i++){ // first = khoi luong , second = gia tri
+    	int w = a[i].first , value = a[i].second;
+    	for(int j = v ; j >= a[i].first ; j--){
+    		if(dp[j-a[i].first])dp[j] = max(dp[j] , dp[j-a[i].first] + value);
+		}
+	}
+	cout<<dp[v] - 1<<endl;
+}
+int main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL); cout.tie(NULL);
+    int t = 1;
+    cin >> t;
+    while(t--)solve();
+}
