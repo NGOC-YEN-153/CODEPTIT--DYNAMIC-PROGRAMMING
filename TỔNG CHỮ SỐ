@@ -1,0 +1,65 @@
+#include<iostream>
+using namespace std;
+#define ll long long
+int dp[101][10005];
+int a,b ;
+ inline void back(int  a , int b){
+    if(a < 0 || b < 0){
+        dp[a][b] = 1e9;
+        return;
+    }
+    int ans = 1e9;
+    for(int i = 1 ; i<= 9 ; i++){
+        int x = a - i ,  y = b - i * i;
+        if(x < 0 || y < 0)continue;
+        if(dp[x][y] == -1)back(x,y);
+        ans = min(ans , dp[x][y]);
+    }
+    if(ans == 1e9)dp[a][b] = 1e9;
+    else dp[a][b] = 1 + ans;
+}
+ inline void solve(){
+    cin >> a >> b;
+    for(int i =0 ; i<= a ; i++){
+        for(int j =0  ; j<= b ; j++)dp[i][j] = -1;
+    }
+    dp[0][0] = 0;
+    if(a==0 && b == 0){
+        cout<<0<<"\n";
+        return;
+    }
+    back(a,b);
+    if(dp[a][b]==1e9){
+        cout<<-1<<"\n";
+        return;
+}
+    while(a > 0){
+        int minn = 1e9;
+        for(int  i = 1 ; i <= 9 ; i++){
+            int x = a - i;
+            int y = b - i * i;
+            if(x < 0 || y < 0)continue;
+            minn = min(minn , dp[x][y]);
+        }
+        for(int i = 1  ;i <= 9 ; i++){
+            int x = a - i;
+            int y = b - i * i;
+            if(x < 0 || y < 0)continue;
+            if(x >=0 && y >= 0 && dp[x][y] == minn ){
+                cout<<i;
+                a-=i;
+                b-=i*i;
+                break;
+            }
+        }
+    }
+    cout<<"\n";
+}
+int main() {
+    ios_base::sync_with_stdio(0); cin.tie(NULL);cout.tie(NULL);
+    int t ;
+    cin  >> t;
+    while(t--) {
+        solve();
+}
+}
