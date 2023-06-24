@@ -1,0 +1,25 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define ll long long
+void TestCase() {
+    string s;
+	cin >>s;
+	ll ans = s[0] - 48;
+	ll sumpre= s[0] - 48;
+	for(int i=1 ; i< s.size(); i++){
+		ans += sumpre * 10 + (i +1) * (s[i] - 48);
+		sumpre = sumpre * 10 + (i +1) * (s[i] - 48);
+	}
+	cout<<ans<<"\n";
+}
+
+int main() {
+	ios_base::sync_with_stdio(false);
+    cin.tie(NULL); cout.tie(NULL);
+
+    int T = 1; cin >> T;
+    while (T--) {
+        TestCase();
+    }
+    return 0;
+}
